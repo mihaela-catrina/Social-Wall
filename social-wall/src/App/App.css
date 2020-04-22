@@ -1,0 +1,17 @@
+.App {
+    margin-top: 10px;
+}
+  
+.App .navbar-brand {
+    margin-left:30px;
+    margin-right:30px;
+}
+  
+.App .navbar-nav > li{
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.App .navbar .btn{
+    margin-left:20px;
+}

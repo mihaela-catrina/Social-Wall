@@ -15,6 +15,7 @@ export function handleResponse(response) {
             return Promise.reject(error);
         }
 
+        console.log(jsonData)
         return jsonData;
      });
 }

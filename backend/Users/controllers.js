@@ -18,7 +18,8 @@ const router = express.Router();
 router.post('/register', async (req, res, next) => {
     const {
         username,
-        password
+        password,
+        role
     } = req.body;
 
     // validare de campuri
@@ -34,7 +35,7 @@ router.post('/register', async (req, res, next) => {
             }
         };
         validateFields(fieldsToBeValidated);
-        await UsersService.add(username, password);
+        await UsersService.add(username, password, role);
 
         res.status(201).end();
     } catch (err) {
