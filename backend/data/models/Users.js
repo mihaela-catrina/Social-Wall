@@ -3,6 +3,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    role: {
+        type: String,
+        required: true,
+        enum: ['admin', 'user']
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true
@@ -11,10 +28,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        required: true,
-        enum: ['admin', 'user']
+    confirmed: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 

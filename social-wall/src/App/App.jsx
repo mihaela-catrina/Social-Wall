@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Route, Link } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap'
+import ReactNotifications from 'react-notifications-component';
 
 import { history, Role } from '@/_helpers';
 import { authenticationService } from '@/_services';
@@ -16,8 +17,6 @@ import './App.css';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        localStorage.clear(); 
-
 
         this.state = {
             currentUser: null,
@@ -26,8 +25,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        localStorage.clear(); 
-
         authenticationService.currentUser.subscribe(x => this.setState({
             currentUser: x,
             isAdmin: x && x.role === Role.Admin
@@ -44,6 +41,7 @@ class App extends React.Component {
         return (
             <Router history={history}>
                 <div className="App">
+                    <ReactNotifications />
                     <Navbar collapseOnSelect>
                         <Navbar.Brand href="/">Social Wall</Navbar.Brand>
                         <Navbar.Toggle />
@@ -54,7 +52,7 @@ class App extends React.Component {
                                 </Nav>
                                 <Navbar.Collapse className="justify-content-end">
                                     <Navbar.Text>
-                                        Signed in as: <a href="#login">Mark Otto</a>
+                                        Signed in as: <a href="/profile">{currentUser.firstName + " " + currentUser.lastName}</a>
                                     </Navbar.Text>
                                     <Nav className="logout-button">
                                         <Button onClick={this.logout} variant="outline-info">Logout</Button>
@@ -81,6 +79,7 @@ class App extends React.Component {
                                 <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
+                                <Route path="/profile" component={HomePage} />
                             </div>
                         </div>
                     </div>

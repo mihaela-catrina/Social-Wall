@@ -1,11 +1,19 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import Select from 'react-select';
+import { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 import * as Yup from 'yup';
 
 import './RegisterPage.css'
 
-/* import { registrationService } from '@/_services';
- */
+import { registrationService } from '@/_services';
+
+const roleOptions = [
+    { value: 'admin', label: 'admin' },
+    { value: 'user', label: 'user' },
+]
+
 class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
@@ -19,13 +27,16 @@ class RegisterPage extends React.Component {
                 </div>
                 <Formik
                     initialValues={{
+                        role: undefined,
                         email: '',
                         firstName:'',
-                        lastname:'',
+                        lastName:'',
+                        username: '',
                         password: '',
                         confirmPassword:''
                     }}
                     validationSchema={Yup.object().shape({
+                        role: Yup.string().ensure().required('Pick your role, please!'),
                         email: Yup.string().required('Email is required'),
                         firstName: Yup.string().required('Fisrt name is required'),
                         lastName: Yup.string().required('Last name is required'),
@@ -33,7 +44,8 @@ class RegisterPage extends React.Component {
                         password: Yup.string().required('Password is required'),
                         confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], "Passwords don't match").required('Confirm Password is required'),
                     })}
-                    onSubmit={({ 
+                    onSubmit={({
+                            role,
                             email,
                             firstName,
                             lastName,
@@ -43,26 +55,46 @@ class RegisterPage extends React.Component {
                         }, 
                         { 
                             setStatus,
-                            setSubmitting 
+                            setSubmitting,
+                            resetForm
                         }) => {
                         setStatus();
-                        console.log(email);
-                        console.log(username);
-                        console.log(password);
-/*                         registrationService.register(email, firstName, lastName, username, password, confirmPassword )
+
+                        registrationService.register(role.value, email, firstName, lastName, username, password )
                             .then(
-                                user => {
-                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    this.props.history.push(from);
+                                data => {
+                                    console.log(data);
+                                    store.addNotification({
+                                        title: 'Register',
+                                        message: data.msg,
+                                        type: 'info',                         
+                                        container: 'bottom-left',                // where to position the notifications
+                                        animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                                        animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                                        dismiss: {
+                                          duration: 3000 
+                                        }
+                                      })
+                                    
+                                      resetForm();
                                 },
                                 error => {
                                     setSubmitting(false);
                                     setStatus(error);
                                 }
-                            ); */
+                            );
                     }}
-                    render={({ errors, status, touched, isSubmitting }) => (
+                    render={({ errors, status, touched, isSubmitting, values, setFieldTouched, setFieldValue }) => (
                         <Form>
+                            <div className="form-group" >
+                                <label htmlFor="role">Role</label>
+                                <Select className={'role' + (errors.role && touched.role ? ' is-invalid' : '')} 
+                                        onChange={value => setFieldValue("role", value)}
+                                        onBlur={() => setFieldTouched("role", true)}
+                                        value={values.role}
+                                        options={roleOptions}/>
+                                <ErrorMessage name="role" component="div" className="invalid-feedback" />
+                            </div>
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
                                 <Field name="email" type="email" placeholder='Enter your email' className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />

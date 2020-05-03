@@ -13,20 +13,36 @@ const {
     authorizeRoles
 } = require('../security/Roles');
 
+const {
+    confirmEmail
+} = require('../Email/controller')
+
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
+    const body = JSON.parse(req.body);
     const {
+        role,
+        email,
+        firstName,
+        lastName,
         username,
-        password,
-        role
-    } = req.body;
+        password
+    } = body;
 
     // validare de campuri
     try {
         const fieldsToBeValidated = {
             username: {
                 value: username,
+                type: 'ascii'
+            },
+            firstName: {
+                value: firstName,
+                type: 'alpha'
+            },
+            lastName: {
+                value: lastName,
                 type: 'alpha'
             },
             password: {
@@ -35,8 +51,9 @@ router.post('/register', async (req, res, next) => {
             }
         };
         validateFields(fieldsToBeValidated);
-        await UsersService.add(username, password, role);
-
+        response = await UsersService.add(role, email, firstName, lastName, username, password);
+       
+        res.json(response);
         res.status(201).end();
     } catch (err) {
         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
@@ -50,6 +67,19 @@ router.get('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req, r
     } = req.params;
     try {
         const users = await UsersService.getAll();
+        res.json(users);
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
+router.delete('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    try {
+        const users = await UsersService.remove();
         res.json(users);
     } catch (err) {
         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
@@ -104,6 +134,9 @@ router.post('/login', async (req, res, next) => {
             id: user.id,
             username: user.username,
             role: user.role,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
             token: token
       });
   } catch (err) {
@@ -112,4 +145,12 @@ router.post('/login', async (req, res, next) => {
   }
 
 })
+
+
+// This is the endpoint that is hit from the onSubmit handler in Landing.js
+// The callback is shelled off to a controller file to keep this file light.
+
+// this is the endpoint pinged in the componentDidMount of 
+// Confirm.js on the client.
+router.get('/confirm/:id', confirmEmail, async (req, res, next) => {next()});
 module.exports = router;

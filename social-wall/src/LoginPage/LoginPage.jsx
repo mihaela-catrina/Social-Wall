@@ -19,7 +19,7 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div className="LoginPage">
-                <div class='container4'>
+                <div className='container4'>
                     <h2 align="center">Login</h2>
                 </div>
                 <Formik

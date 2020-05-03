@@ -3,34 +3,20 @@ import { BehaviorSubject } from 'rxjs';
 import config from 'config';
 import { handleResponse } from '@/_helpers';
 
-const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
-
 export const registrationService = {
-    login,
-    logout,
-    currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value }
+    register,
 };
 
-function login(username, password) {
+function register(role, email, firstName, lastName, username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ role, email, firstName, lastName, username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/login`, requestOptions)
+    return fetch(`${config.apiUrl}/users/register`, requestOptions)
         .then(res => handleResponse(res))
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            currentUserSubject.next(user);
-            return user;
+        .then(data => {
+            return data
         });
-}
-
-function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    currentUserSubject.next(null);
 }

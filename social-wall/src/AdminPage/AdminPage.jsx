@@ -22,14 +22,14 @@ class AdminPage extends React.Component {
                 <h1>Admin</h1>
                 <p>This page can only be accessed by administrators.</p>
                 <div>
-                    All users from secure (admin only) api end point:
-                    {users &&
+{/*                     All users from secure (admin only) api end point:
+ */}{/*                     {users &&
                         <ul>
                             {users.map(user =>
                                 <li key={user.id}>{user.firstName} {user.lastName}</li>
                             )}
                         </ul>
-                    }
+                    } */}
                 </div>
             </div>
         );
