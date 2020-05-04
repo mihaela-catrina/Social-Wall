@@ -1,5 +1,6 @@
-.App {
-    margin-top: 10px;
+.App .navbar {
+    background-color: #fff;
+    padding-bottom: 20px;
 }
   
 .App .navbar-brand {
@@ -14,4 +15,18 @@
 
 .App .navbar .btn{
     margin-left:20px;
+}
+
+.homepage_header {
+    display: flex;
+    position: relative;
+}
+
+.relative {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }

@@ -139,21 +139,23 @@ class AdminPage extends React.Component {
                 if (user.role === "tehnical_support")
                     links.push(<li key={user.id}>Tehnical Support user -> {user.username}</li>)
             });
+            console.log(this.state.users);
         }
         return (
-            <div>
+            <div class="AdminDashboard">
                 <div>
                     <Sidebar items={ items } />
                 </div>
+
                 <h2 align="center">Admin Dashboard</h2>
-                    <p align="center">This page can only be accessed by administrators.</p>
+                <p align="center">This page can only be accessed by administrators.</p>
 
                 { this.state.viewActive && 
                     <div>
                         <h4 align="center">All users from secure (admin only) api end point:</h4>
                         
                         {this.state.users &&
-                            <ul>
+                            <ul class="link">
                                 {links}
                             </ul>
                         }

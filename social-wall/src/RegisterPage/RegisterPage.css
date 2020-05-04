@@ -5,7 +5,8 @@
   
     .RegisterPage form {
       margin: 0 auto;
-      max-width: 520px;
+      min-width: 400px;
+      width: 520px;
     }
   }
   

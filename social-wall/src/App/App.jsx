@@ -73,9 +73,8 @@ class App extends React.Component {
                         }
                     </Navbar>
 
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 offset-md-3">
+                    <div className="relative homepage_header">
+                            <div className="relative">
                                 <Route exact path="/" component={SocialWallPage} />
                                 <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
                                 <Route path="/confirm" component={ConfirmPage} />
@@ -83,7 +82,6 @@ class App extends React.Component {
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/profile" component={HomePage} />
                             </div>
-                        </div>
                     </div>
                 </div>
             </Router>
