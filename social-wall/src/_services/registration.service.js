@@ -1,10 +1,11 @@
 import { BehaviorSubject } from 'rxjs';
 
 import config from 'config';
-import { handleResponse } from '@/_helpers';
+import { authHeader, handleResponse } from '@/_helpers';
 
 export const registrationService = {
     register,
+    registerSupport
 };
 
 function register(role, email, firstName, lastName, username, password) {
@@ -15,6 +16,23 @@ function register(role, email, firstName, lastName, username, password) {
     };
 
     return fetch(`${config.apiUrl}/users/register`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {
+            return data
+        });
+}
+
+
+function registerSupport(role, username, password) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ role, username, password })
+    };
+
+    console.log(requestOptions);
+
+    return fetch(`${config.apiUrl}/users/register/support`, requestOptions)
         .then(res => handleResponse(res))
         .then(data => {
             return data

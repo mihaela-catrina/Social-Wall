@@ -40,6 +40,18 @@ const add = async (role, email, firstName, lastName, username, password) => {
     }
 };
 
+const addSupport = async (role, username, password) => {
+    const hashedPassword = await hash(password);
+    const user = new Users({
+        role,
+        username,
+        password: hashedPassword,
+        confirmed: true
+    });
+
+    await user.save();
+};
+
 const getAll = async () => {
     return await Users.find();
 };
@@ -50,6 +62,19 @@ const getById = async (id) => {
 
 const remove = async () => {
     return await Users.remove({});
+}
+
+const checkConfirmedAccount = async (username) => {
+    user = await Users.findOne({ username });
+    console.log(user);
+    if (user === null) {
+        throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
+    }
+
+    if (user.confirmed)
+        return true;
+    
+    return false;
 }
 
 const authenticate = async (username, password) => {
@@ -71,8 +96,10 @@ const authenticate = async (username, password) => {
 
 module.exports = {
     add,
+    addSupport,
     authenticate,
     getAll,
     getById,
-    remove
+    remove,
+    checkConfirmedAccount
 }

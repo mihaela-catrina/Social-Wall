@@ -10,8 +10,8 @@ import './RegisterPage.css'
 import { registrationService } from '@/_services';
 
 const roleOptions = [
-    { value: 'admin', label: 'admin' },
     { value: 'user', label: 'user' },
+    { value: 'admin', label: 'admin' },
 ]
 
 class RegisterPage extends React.Component {

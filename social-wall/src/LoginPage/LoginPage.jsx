@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { store } from 'react-notifications-component';
 import * as Yup from 'yup';
 
 import './Login.css'
@@ -35,7 +36,20 @@ class LoginPage extends React.Component {
                         setStatus();
                         authenticationService.login(username, password)
                             .then(
-                                user => {
+                                data => {
+                                    if (!data.confirmed) {
+                                        store.addNotification({
+                                            title: 'Email Confirmation',
+                                            message: data.msg,
+                                            type: 'warning',                         
+                                            container: 'bottom-left',                // where to position the notifications
+                                            animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                                            animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                                            dismiss: {
+                                            duration: 7000 
+                                            }
+                                        });
+                                    }
                                     const { from } = this.props.location.state || { from: { pathname: "/" } };
                                     this.props.history.push(from);
                                 },

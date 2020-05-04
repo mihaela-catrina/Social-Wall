@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route, Link, Switch, HashRouter } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap'
 import ReactNotifications from 'react-notifications-component';
 
@@ -11,6 +11,7 @@ import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
 import { RegisterPage } from '@/RegisterPage';
 import { SocialWallPage } from '@/SocialWallPage';
+import { ConfirmPage } from '@/ConfirmPage';
 
 import './App.css';
 
@@ -77,6 +78,7 @@ class App extends React.Component {
                             <div className="col-md-6 offset-md-3">
                                 <Route exact path="/" component={SocialWallPage} />
                                 <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
+                                <Route path="/confirm" component={ConfirmPage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/profile" component={HomePage} />

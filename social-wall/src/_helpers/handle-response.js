@@ -2,7 +2,6 @@ import { authenticationService } from '@/_services';
 
 export function handleResponse(response) {
     return response.json().then(jsonData => {
-        console.log(jsonData);
         // returns true if the response returned successfully
         if (!response.ok) {
             if ([400, 401, 403].indexOf(response.status) !== -1) {
@@ -15,7 +14,6 @@ export function handleResponse(response) {
             return Promise.reject(error);
         }
 
-        console.log(jsonData)
         return jsonData;
      });
 }

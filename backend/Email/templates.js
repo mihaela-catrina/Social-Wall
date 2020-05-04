@@ -8,13 +8,13 @@ const { CLIENT_ORIGIN } = require('../config')
 module.exports = {
 
   confirm: id => ({
-    subject: 'React Confirm Email',
+    subject: 'Social Wall Confirm Email',
     html: `
-      <a href='${CLIENT_ORIGIN}/confirm/${id}'>
+      <a href='${CLIENT_ORIGIN}/confirm?id=${id}'>
         click to confirm email
       </a>
     `,      
-    text: `Copy and paste this link: ${CLIENT_ORIGIN}/confirm/${id}`
+    text: `Copy and paste this link: ${CLIENT_ORIGIN}/confirm?id=${id}}`
   })
   
 }
