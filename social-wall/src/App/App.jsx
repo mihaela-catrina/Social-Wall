@@ -12,6 +12,7 @@ import { LoginPage } from '@/LoginPage';
 import { RegisterPage } from '@/RegisterPage';
 import { SocialWallPage } from '@/SocialWallPage';
 import { ConfirmPage } from '@/ConfirmPage';
+import { ContactPage } from '@/ContactPage';
 
 import './App.css';
 
@@ -51,6 +52,9 @@ class App extends React.Component {
                                 <Nav>
                                     {isAdmin && <Nav.Link href="/admin">Admin</Nav.Link>}
                                 </Nav>
+                                <Nav>
+                                    {!isAdmin && <Nav.Link href="/contact-page">Contact</Nav.Link>}
+                                </Nav>
                                 <Navbar.Collapse className="justify-content-end">
                                     <Navbar.Text>
                                         Signed in as: <a href="/profile">{currentUser.firstName + " " + currentUser.lastName}</a>
@@ -81,6 +85,7 @@ class App extends React.Component {
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/profile" component={HomePage} />
+                                <Route path="/contact-page" component={ContactPage} />
                             </div>
                     </div>
                 </div>
