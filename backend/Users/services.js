@@ -65,7 +65,7 @@ const remove = async () => {
 }
 
 const checkConfirmedAccount = async (username) => {
-    user = await Users.findOne({ username });
+    user = await Users.findOne({ username }) || await Users.findOne({email: username})
     console.log(user);
     if (user === null) {
         throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
@@ -79,7 +79,8 @@ const checkConfirmedAccount = async (username) => {
 
 const authenticate = async (username, password) => {
 
-    const user = await Users.findOne({ username });
+    console.log(username);
+    const user = await Users.findOne({ username }) || await Users.findOne({email: username})
     if (user === null) {
         throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
     }

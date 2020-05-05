@@ -145,12 +145,14 @@ router.post('/login', async (req, res, next) => {
         username,
         password
     } = body;
+
+    console.log(username);
   
     try {
       const fieldsToBeValidated = {
           username: {
               value: username,
-              type: 'alpha'
+              type: 'ascii'
           },
           password: {
               value: password,
