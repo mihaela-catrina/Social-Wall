@@ -13,6 +13,7 @@ import { RegisterPage } from '@/RegisterPage';
 import { SocialWallPage } from '@/SocialWallPage';
 import { ConfirmPage } from '@/ConfirmPage';
 import { ContactPage } from '@/ContactPage';
+import { SupportPage } from '@/SupportPage';
 
 import './App.css';
 
@@ -22,14 +23,16 @@ class App extends React.Component {
 
         this.state = {
             currentUser: null,
-            isAdmin: false
+            isAdmin: false,
+            isSupport: false,
         };
     }
 
     componentDidMount() {
         authenticationService.currentUser.subscribe(x => this.setState({
             currentUser: x,
-            isAdmin: x && x.role === Role.Admin
+            isAdmin: x && x.role === Role.Admin,
+            isSupport: x && x.role === Role.TehnicalSupport
         }));
     }
 
@@ -39,7 +42,7 @@ class App extends React.Component {
     }
 
     render() {
-        const { currentUser, isAdmin } = this.state;
+        const { currentUser, isAdmin, isSupport } = this.state;
         return (
             <Router history={history}>
                 <div className="App">
@@ -53,7 +56,10 @@ class App extends React.Component {
                                     {isAdmin && <Nav.Link href="/admin">Admin</Nav.Link>}
                                 </Nav>
                                 <Nav>
-                                    {!isAdmin && <Nav.Link href="/contact-page">Contact</Nav.Link>}
+                                    {isSupport && <Nav.Link href="/support">Support Dashboard</Nav.Link>}
+                                </Nav>
+                                <Nav>
+                                    {!isAdmin && !isSupport && <Nav.Link href="/contact-page">Contact</Nav.Link>}
                                 </Nav>
                                 <Navbar.Collapse className="justify-content-end">
                                     <Navbar.Text>
@@ -86,6 +92,7 @@ class App extends React.Component {
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/profile" component={HomePage} />
                                 <Route path="/contact-page" component={ContactPage} />
+                                <Route path="/support" component={SupportPage} />
                             </div>
                     </div>
                 </div>

@@ -14,7 +14,9 @@ const mongoose = require('mongoose');
 })();
 
 const Users = require('./models/Users.js');
+const Messages = require('./models/Messages.js');
 
 module.exports = {
-  Users
+  Users,
+  Messages
 }

@@ -8,6 +8,12 @@ const {
     Users
 } = require('../data');
 
+const sendResponse = async (email, message, originalMessage) => {
+    await sendEmail(email, templates.response({responseMsg: message, originalMsg: originalMessage}))
+    .then(() => response = { msg: msgs.confirm })
+    .catch(err => console.log(err))   
+}
+
 // The callback that is invoked when the user submits the form on the client.
 const collectEmail = async (user, isNew) => {
     response = {};
@@ -71,5 +77,6 @@ const confirmEmail = async (req, res, next) => {
 
 module.exports = {
     collectEmail,
-    confirmEmail
+    confirmEmail,
+    sendResponse
 }

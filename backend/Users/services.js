@@ -1,5 +1,5 @@
 const {
-    Users
+    Users,
 } = require('../data');
 
 const {
@@ -102,5 +102,5 @@ module.exports = {
     getAll,
     getById,
     remove,
-    checkConfirmedAccount
+    checkConfirmedAccount,
 }

@@ -1,0 +1,15 @@
+.card-header {
+    background-image: linear-gradient(-40deg, rgba(123, 166, 209, 100), rgba(255, 255, 255, 0));
+}
+
+.btn-card {
+    background-color: #12abbf
+}
+
+.btn-delete {
+    background-color:#283c86
+}
+
+.btn-important {
+    background-color:#318ce8
+}

@@ -1,16 +1,16 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage, Textarea } from 'formik';
 import * as Yup from 'yup';
+import { store } from 'react-notifications-component';
+
+
+import { userService, authenticationService } from '@/_services';
 
 import './ContactPage.css'
 
 class ContactPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            text_value: ''
-        }
     }
 
     render() {
@@ -30,9 +30,31 @@ class ContactPage extends React.Component {
                             subject: Yup.string().required('Subject is required'),
                             message: Yup.string().required('Message is required')
                         })}
-                        onSubmit={({ subject, message }, { setStatus, setSubmitting }) => {
+                        onSubmit={({ subject, message }, { setStatus, setSubmitting, resetForm }) => {
                             setStatus();
-                            console.log(message);
+                            userService.postMessage(subject, message, authenticationService.currentUserValue.id)
+                                .then(
+                                    data => {
+                                        store.addNotification({
+                                            title: 'Confirmation',
+                                            message: data.msg,
+                                            type: 'info',                         
+                                            container: 'bottom-left',                // where to position the notifications
+                                            animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                                            animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                                            dismiss: {
+                                            duration: 5000 
+                                            }
+                                        })
+
+                                        setSubmitting(false);
+                                        resetForm();
+                                    },
+                                    error => {
+                                        setSubmitting(false);
+                                        setStatus(error);
+                                    }
+                                );
                         }}
                         render={({ errors, status, touched, isSubmitting }) => (
                             <Form className="contact-form">

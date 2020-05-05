@@ -119,7 +119,7 @@ router.delete('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req
     }
 });
 
-router.get('/:id', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
+router.get('/:id', authorizeAndExtractToken, authorizeRoles('admin', "tehnical_support"), async (req, res, next) => {
     const {
         id
     } = req.params;
@@ -145,8 +145,6 @@ router.post('/login', async (req, res, next) => {
         username,
         password
     } = body;
-
-    console.log(username);
   
     try {
       const fieldsToBeValidated = {
@@ -195,4 +193,5 @@ router.post('/login', async (req, res, next) => {
 // this is the endpoint pinged in the componentDidMount of 
 // Confirm.js on the client.
 router.get('/confirm/:id', confirmEmail, async (req, res, next) => {next()});
+
 module.exports = router;
