@@ -32,6 +32,8 @@ class SupportPage extends React.Component {
         this.getDashboardItems = this.getDashboardItems.bind(this);
         this.handlePageChanged = this.handlePageChanged.bind(this);
         this.handleResponse = this.handleResponse.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSetImportant = this.handleSetImportant.bind(this);
         this.viewMessages = this.viewMessages.bind(this);
     }
 
@@ -68,20 +70,61 @@ class SupportPage extends React.Component {
     }
 
     handleResponse(id) {
-        console.log(id);
         const message = this.state.messages.find(x => x._id === id)
-        this.setState({sendingResponse: true, viewMessages: false, userId: message.userId, originalMessage: {title: message.subject, content:message.message}});
+        this.setState({sendingResponse: true, viewMessages: false, userId: message.userId, originalMessage: message});
+    }
+
+    handleDelete(id) {
+        userService.deleteMessage(id).then(resp => {
+            this.setState({loading: true});
+            this.getMessages();
+            store.addNotification({
+                title: 'Delete Message',
+                message: resp.msg,
+                type: 'info',                         
+                container: 'bottom-left',                // where to position the notifications
+                animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                dismiss: {
+                  duration: 5000 
+                }
+            });
+        })
+    }
+
+    handleSetImportant(id) {
+        userService.setImportantMessage(id).then(resp => {
+            this.setState({loading: true});
+            this.getMessages();
+            store.addNotification({
+                title: 'Important',
+                message: resp.msg,
+                type: 'info',                         
+                container: 'bottom-left',                // where to position the notifications
+                animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                dismiss: {
+                  duration: 5000 
+                }
+            });
+        })
     }
 
     renderMessages(messages) {
         let contents = [];
-        console.log(messages);
         messages.map((msg, i) => {
-            let randomNo = performance.now();
-            let name= "card-header" + randomNo;
+            let name= "";
+            if (msg.important)
+                name = "important";
+            else if (msg.resolved)
+                name = "resolved";
+            else
+                name = "default";
             let content = {
                 title: msg.subject,
                 message: msg.message,
+                resolved: msg.resolved,
+                important: msg.important,
                 user: msg.userId,
                 id: msg._id,
                 header: name,
@@ -92,7 +135,7 @@ class SupportPage extends React.Component {
         return contents.map((msg, index) => {
             if (index >= (this.state.activePage - 1) * 5 && index < this.state.activePage * 5) {
                 return (
-                    <MessageCard content={msg} handleResponse={this.handleResponse}/>
+                    <MessageCard content={msg} handleResponse={this.handleResponse} handleDelete={this.handleDelete} handleSetImportant={this.handleSetImportant}/>
                 );
             }
         });
@@ -116,7 +159,6 @@ class SupportPage extends React.Component {
                         userService.sendResponse( response, userId, originalMessage )
                             .then(
                                 data => {
-                                    console.log(data);
                                     store.addNotification({
                                         title: 'Message!',
                                         message: data.msg,
@@ -142,7 +184,6 @@ class SupportPage extends React.Component {
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
                             <div className="form-group">
-                                <label htmlFor="response">Response</label>
                                 <Field name="response" component="textarea" rows={6} placeholder='Response...' className={'wrap-input' + (errors.response && touched.response ? ' is-invalid' : '')} />
                                 <ErrorMessage name="response" component="div" className="invalid-feedback" />
                             </div>

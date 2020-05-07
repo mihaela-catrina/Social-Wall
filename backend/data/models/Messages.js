@@ -15,6 +15,10 @@ const MessageSchema = new Schema({
         type: String,
         required: true
     },
+    response: {
+        type: String,
+        default: ''
+    },
     important: {
         type: Boolean,
         default: false

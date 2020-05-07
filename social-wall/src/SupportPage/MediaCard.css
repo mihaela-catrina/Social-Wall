@@ -1,15 +1,103 @@
-.card-header {
-    background-image: linear-gradient(-40deg, rgba(123, 166, 209, 100), rgba(255, 255, 255, 0));
+/* Header */
+.card-header-default {
+    background-image: linear-gradient(-40deg, rgba(75, 108, 183, 1), rgba(24, 40, 72, 1));
 }
 
-.btn-card {
-    background-color: #12abbf
+.card-header-important {
+    background-image: linear-gradient(-40deg, rgba(253, 200, 48, 1), rgba(243, 115, 53, 1));
 }
 
-.btn-delete {
-    background-color:#283c86
+.card-header-resolved {
+    background-image: linear-gradient(-40deg, rgba(41, 61, 11, 1), rgba(0, 255, 115, 1));
 }
 
-.btn-important {
-    background-color:#318ce8
+
+
+/* Respond button*/
+.btn-card-default {
+    background-color:rgb(11, 57, 211);
+    border: none;
+}
+
+.btn-card-default:hover {
+    background-color:rgb(7, 29, 102)
+}
+
+.btn-card-resolved {
+    background-color: rgb(34, 82, 10);
+    border: none;
+}
+
+.btn-card-resolved:hover {
+    background-color: rgb(58, 150, 13);
+}
+
+.btn-card-important {
+    background-color: rgb(255, 81, 47);
+    border: none;
+}
+
+.btn-card-important:hover {
+    background-color: rgb(112, 28, 11)
+}
+
+
+/* Delete button */
+.btn-delete-default {
+    background-color:rgb(10, 27, 179);
+    border: none;
+}
+
+.btn-delete-default:hover {
+    background-color:rgb(54, 83, 247);
+}
+
+.btn-delete-important {
+    background-color:rgb(255, 2, 15);
+    border: none;
+}
+
+.btn-delete-important:hover {
+    background-color:rgb(134, 17, 4);
+}
+
+.btn-delete-resolved {
+    background-color:rgb(155, 196, 0);
+    border: none;
+}
+
+.btn-delete-resolved:hover {
+    background-color:rgb(100, 126, 6);
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+
+
+/* Important button */
+.btn-important-default {
+    background-color:#742cc7;
+    border: none;
+}
+
+.btn-important-default:hover {
+    background-color:#4e2cc7
+}
+
+.btn-important-resolved {
+    background-color:#026d07;
+    border: none;
+}
+
+.btn-important-resolved:hover {
+    background-color:#118d18;
+}
+
+.btn-important-important {
+    background-color:#b41510;
+    border: none;
+}
+
+.btn-important-important:hover {
+    background-color:#790804
 }

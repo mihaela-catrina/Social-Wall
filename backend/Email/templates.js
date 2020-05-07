@@ -30,8 +30,8 @@ module.exports = {
     subject: 'Social Wall Response',
     html: `
       <div>
-        <h3> Your original message: ${content.originalMsg.title} </h3>
-        <p> ${content.originalMsg.content} </p>
+        <h3> Your original message: ${content.originalMsg.subject} </h3>
+        <p> ${content.originalMsg.message} </p>
 
         <br />
         <br />

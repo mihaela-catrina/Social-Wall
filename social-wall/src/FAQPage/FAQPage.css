@@ -1,0 +1,84 @@
+
+.pagination-item {
+    background-color: coral;
+    color: orange;
+    background: orange;
+    background-image: orange;
+}
+
+.FAQpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.FAQpage br {
+    width: 70%;
+    min-height: 5px;
+}
+
+.progress-style {
+    width: 75%;
+    height: 20px;
+}
+
+.pagination {
+    margin-right: 100px;
+    align-self: flex-end;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: orange;
+    border-color:orange;
+}
+
+.question-view-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90px;;
+    margin-top: 80px;
+}
+
+.progress-question {
+    transform: rotate(-90deg);
+    width: 100px;
+    max-height: 5px;
+    align-self: center;
+}
+
+.faq-questions {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.FAQpage span.question { 
+    font-size: 25px; 
+    display: inline-block;
+    color: #000;
+    align-self: top;
+}
+ 
+.FAQpage span.question::first-letter  { 
+    font-size: 130%;
+    color: orange
+}
+
+.FAQpage span.answer { 
+    font-size: 18px; 
+    display: inline-block;
+    color: rgb(121, 117, 117)
+}
+ 
+.FAQpage span.answer::first-letter  { 
+    font-size: 28px;
+    color: rgb(80, 78, 78)
+}
+

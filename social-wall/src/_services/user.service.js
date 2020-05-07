@@ -6,7 +6,10 @@ export const userService = {
     getById,
     postMessage,
     getAllMessages,
-    sendResponse
+    sendResponse,
+    deleteMessage,
+    setImportantMessage,
+    getImportantMessages
 };
 
 function getAll() {
@@ -38,7 +41,14 @@ function getAllMessages() {
     const requestOptions = { method: 'GET', headers: authHeader() };
     return fetch(`${config.apiUrl}/messages`, requestOptions)
         .then(res => handleResponse(res))
-        .then(data => {console.log(data); return data});
+        .then(data => {return data});
+}
+
+function getImportantMessages() {
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`${config.apiUrl}/messages/important`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
 }
 
 function sendResponse(response, userId, originalMessage) {
@@ -54,4 +64,18 @@ function sendResponse(response, userId, originalMessage) {
         .then(data => {
             return data
         });
+}
+
+function deleteMessage(id) {
+    const requestOptions = { method: 'DELETE', headers: authHeader() };
+    return fetch(`${config.apiUrl}/messages/${id}`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {console.log(data); return data});
+}
+
+function setImportantMessage(id) {
+    const requestOptions = { method: 'PUT', headers: authHeader() };
+    return fetch(`${config.apiUrl}/messages/${id}/important`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {console.log(data); return data});
 }

@@ -58,6 +58,16 @@ router.get('/', authorizeAndExtractToken, authorizeRoles('admin', 'tehnical_supp
     }
 });
 
+router.get('/important', async (req, res, next) => {
+    try {
+        const messages = await MessagesService.getAll();
+        const importantMessages = messages.filter(x => x.important === true);
+        res.json(importantMessages);
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.post('/respond', authorizeAndExtractToken, authorizeRoles('admin', 'tehnical_support'), async (req, res, next) => {
     const body = JSON.parse(req.body);
     const {
@@ -65,8 +75,6 @@ router.post('/respond', authorizeAndExtractToken, authorizeRoles('admin', 'tehni
         response,
         originalMessage
     } = body;
-
-    console.log(originalMessage);
   
     try {
         
@@ -88,5 +96,56 @@ router.post('/respond', authorizeAndExtractToken, authorizeRoles('admin', 'tehni
         next(err);
     }
 });
+
+router.delete('/', authorizeAndExtractToken, authorizeRoles('admin', 'tehnical_support'), async (req, res, next) => {
+    try {
+        await MessagesService.remove();
+        res.json({msg: "All Messages deleted!"});
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
+router.delete('/:id', authorizeAndExtractToken, authorizeRoles('admin', "tehnical_support"), async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    try {
+
+        validateFields({
+            id: {
+                value: id,
+                type: 'ascii'
+            }
+        });
+        await MessagesService.removeById(id);
+        res.json({msg: "Message removed!"});
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
+router.put('/:id/important', authorizeAndExtractToken, authorizeRoles('admin', "tehnical_support"), async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    try {
+
+        validateFields({
+            id: {
+                value: id,
+                type: 'ascii'
+            }
+        });
+        await MessagesService.setImportanceFlag(id);
+        res.json({msg: "Message This message is critical now!"});
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
 
 module.exports = router;

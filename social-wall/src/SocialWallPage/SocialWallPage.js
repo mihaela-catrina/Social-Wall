@@ -34,7 +34,7 @@ class SocialWallPage extends React.Component {
                                         }
                                         if (arrayPos === 1) {
                                             document.getElementsByClassName("banner-color")[0].style.backgroundColor = 'rgb(255, 95, 109)';
-                                            document.getElementsByClassName("banner-color")[0].style.backgroundImage ='linear-gradient(-40deg, rgba(255, 195, 113, 0.8), rgba(255, 255, 255, 0))';
+                                            document.getElementsByClassName("banner-color")[0].style.backgroundImage ='linear-gradient(-40deg, rgba(255, 78, 80, 1), rgba(249, 212, 35, 1))';
                                         }
                                         if (arrayPos === 2) {
                                             document.getElementsByClassName("banner-color")[0].style.backgroundColor = 'rgb(29, 38, 113)';

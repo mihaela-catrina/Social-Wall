@@ -14,6 +14,7 @@ import { SocialWallPage } from '@/SocialWallPage';
 import { ConfirmPage } from '@/ConfirmPage';
 import { ContactPage } from '@/ContactPage';
 import { SupportPage } from '@/SupportPage';
+import { FAQPage } from '@/FAQPage';
 
 import './App.css';
 
@@ -59,6 +60,9 @@ class App extends React.Component {
                                     {isSupport && <Nav.Link href="/support">Support Dashboard</Nav.Link>}
                                 </Nav>
                                 <Nav>
+                                    {!isAdmin && !isSupport && <Nav.Link href="/faq-page">FAQ</Nav.Link>}
+                                </Nav>
+                                <Nav>
                                     {!isAdmin && !isSupport && <Nav.Link href="/contact-page">Contact</Nav.Link>}
                                 </Nav>
                                 <Navbar.Collapse className="justify-content-end">
@@ -93,6 +97,7 @@ class App extends React.Component {
                                 <Route path="/profile" component={HomePage} />
                                 <Route path="/contact-page" component={ContactPage} />
                                 <Route path="/support" component={SupportPage} />
+                                <Route path="/faq-page" component={FAQPage}/>
                             </div>
                     </div>
                 </div>
