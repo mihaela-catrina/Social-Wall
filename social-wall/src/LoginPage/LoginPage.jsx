@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { store } from 'react-notifications-component';
+import Popup from "reactjs-popup";
 import * as Yup from 'yup';
 
 import './Login.css'
@@ -49,9 +50,13 @@ class LoginPage extends React.Component {
                                             duration: 7000 
                                             }
                                         });
+                                        const { from } = this.props.location.state || { from: { pathname: "/login" } };
+                                        this.props.history.push(from);
+                                    } else {
+                                        const { from } = this.props.location.state || { from: { pathname: "/" } };
+                                        this.props.history.push(from);
                                     }
-                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    this.props.history.push(from);
+                                    setSubmitting(false);
                                 },
                                 error => {
                                     setSubmitting(false);

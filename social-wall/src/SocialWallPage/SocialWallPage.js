@@ -3,9 +3,29 @@ import Typed from 'react-typed';
 
 import "./SocialWallPage.css";
 
+import { Popup } from "./GDPRpopup";
+
 class SocialWallPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            showPopup: false
+        }
+    }
+
+    componentDidMount() {
+            const showGDPRpopup = !localStorage.getItem("GDPR-accepted");
+            if (showGDPRpopup)
+                this.setState({showPopup: true});
+    }
+
+    closePopup() {
+        this.setState({
+            showPopup: false
+        });
+
+        localStorage.setItem("GDPR-accepted", true);
     }
 
     render() {
@@ -51,6 +71,14 @@ class SocialWallPage extends React.Component {
                         <img class="homeimage" src="https://dpp9m9ej5oell.cloudfront.net/assets/homepage/index/header-ec6c42bbc0aef1d2827beeeed791f61c879668da7d58e8857cd3842d84effeb6.png" ></img>
                     </div>
                 </div>
+
+                {this.state.showPopup ? 
+                    <Popup
+                        text='Close Me'
+                        closePopup={this.closePopup.bind(this)}
+                    />
+                    : null
+                }
                     
             </div>
         );
