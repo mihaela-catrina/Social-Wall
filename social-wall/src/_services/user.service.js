@@ -9,7 +9,14 @@ export const userService = {
     sendResponse,
     deleteMessage,
     setImportantMessage,
-    getImportantMessages
+    getImportantMessages,
+    postIdea,
+    getAllIdeas,
+    levelUpIdea,
+    levelDownIdea,
+    levelUpHeartsIdea,
+    viewPendingRequests,
+    approveRequest
 };
 
 function getAll() {
@@ -78,4 +85,64 @@ function setImportantMessage(id) {
     return fetch(`${config.apiUrl}/messages/${id}/important`, requestOptions)
         .then(res => handleResponse(res))
         .then(data => {console.log(data); return data});
+}
+
+function postIdea(subject, description, authority, tags, userId) {
+    let tagsArr = []
+    tags.map((tag, i) => {
+        tagsArr.push(tag.label);
+    });
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ subject: subject, description: description, authority: authority.value, tags: tagsArr, userId: userId})
+    };
+
+    return fetch(`${config.apiUrl}/ideas/`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {
+            return data
+        });
+}
+
+function getAllIdeas() {
+    const requestOptions = { method: 'GET',headers: { 'Content-Type': 'text/plain' } };
+    return fetch(`${config.apiUrl}/ideas`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
+}
+
+function levelUpIdea(id) {
+    const requestOptions = { method: 'PUT' };
+    return fetch(`${config.apiUrl}/ideas/${id}/levelup`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
+}
+
+function levelDownIdea(id) {
+    const requestOptions = { method: 'PUT' };
+    return fetch(`${config.apiUrl}/ideas/${id}/leveldown`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
+}
+
+function levelUpHeartsIdea(id) {
+    const requestOptions = { method: 'PUT' };
+    return fetch(`${config.apiUrl}/ideas/${id}/heart`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
+}
+
+function viewPendingRequests() {
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`${config.apiUrl}/users/pending`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
+}
+
+function approveRequest(id) {
+    const requestOptions = { method: 'PUT', headers: authHeader() };
+    return fetch(`${config.apiUrl}/users/pending/${id}`, requestOptions)
+        .then(res => handleResponse(res))
+        .then(data => {return data});
 }

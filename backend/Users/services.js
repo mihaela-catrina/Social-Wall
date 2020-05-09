@@ -31,12 +31,17 @@ const add = async (role, email, firstName, lastName, username, password) => {
         password: hashedPassword
     });
 
-    existingUser = await Users.findOne({ email: user.email });
-    if (existingUser)
-        return await collectEmail(existingUser, false);
-    else {
+    if (role !== "local-authority") {
+        existingUser = await Users.findOne({ email: user.email });
+        if (existingUser)
+            return await collectEmail(existingUser, false);
+        else {
+            await user.save();
+            return await collectEmail(user,true);
+        }
+    } else {
         await user.save();
-        return await collectEmail(user,true);
+        return {msg: "You account will be verifyed soon!"};
     }
 };
 
@@ -56,12 +61,25 @@ const getAll = async () => {
     return await Users.find();
 };
 
+const getPending = async () => {
+    return await Users.find({role: "local-authority", confirmed: false});
+};
+
 const getById = async (id) => {
     return await Users.findById(id);
 };
 
 const remove = async () => {
     return await Users.remove({});
+}
+
+const approve = async (id) => {
+    const user = await Users.findByIdAndUpdate(id, { confirmed: true });
+    if (user === null) {
+        throw new ServerError(`Utilizatorul inregistrat cu ${id} nu exista!`, 404);
+    }
+    
+    return {msg: "This account has been approved!"}
 }
 
 const checkConfirmedAccount = async (username) => {
@@ -72,9 +90,9 @@ const checkConfirmedAccount = async (username) => {
     }
 
     if (user.confirmed)
-        return true;
+        return {status: true, role: user.role}
     
-    return false;
+    return {status: false, role: user.role}
 }
 
 const authenticate = async (username, password) => {
@@ -103,4 +121,6 @@ module.exports = {
     getById,
     remove,
     checkConfirmedAccount,
+    getPending,
+    approve
 }

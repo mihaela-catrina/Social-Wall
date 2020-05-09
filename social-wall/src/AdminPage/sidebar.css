@@ -8,6 +8,16 @@
     box-shadow: inset -1px 0 0 rgba(255, 255, 255, 255);
 }
 
+.Admin-dasboard-button {
+    border-color: rgb(219, 120, 5);
+    color: rgb(219, 120, 5);
+}
+
+.Admin-dasboard-button:hover {
+    border-color: rgb(219, 120, 5);
+    background-color: rgb(219, 120, 5);
+}
+
 .nav-item {
     padding: 10px 0 0;
 }
@@ -34,4 +44,49 @@ h2 {
       margin: 0 auto;
       width: 400px;
     }
+}
+
+.pending-requests-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+}
+
+.pending-requests-container-row {
+    display: flex;
+    width: 40%;
+    flex-direction: row;
+    align-self: center;
+    margin: 10px;
+}
+
+.pending-approve-btn {
+    width: 11%;
+    text-align: center;
+    border-color: rgb(219, 120, 5);
+    color: rgb(219, 120, 5);
+    margin-right: 10px;
+}
+
+.pending-approve-btn:hover {
+    border-color: rgb(219, 120, 5);
+    background-color: rgb(219, 120, 5);
+}
+
+.pending-users-name {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.submit-form-brn-admin {
+    border-color: rgb(219, 120, 5);
+    background-color: rgb(219, 120, 5);
+    color: black;
+}
+
+.submit-form-brn-admin:hover, .submit-form-brn-admin:focus, .submit-form-brn-admin:active {
+    border-color: rgb(219, 120, 5);
+    background-color: rgb(219, 120, 5);
+    color: black;
 }

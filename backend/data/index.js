@@ -15,8 +15,10 @@ const mongoose = require('mongoose');
 
 const Users = require('./models/Users.js');
 const Messages = require('./models/Messages.js');
+const Ideas = require('./models/Ideas.js')
 
 module.exports = {
   Users,
-  Messages
+  Messages,
+  Ideas
 }

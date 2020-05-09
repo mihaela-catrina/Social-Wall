@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+
+.wall-wraper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+}
+
+/* /////////////////////////////////////////////////////////////////////////
+ */
+.menu {
+    display: flex;
+    justify-content: center;
+    transition: none;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    min-height: 800px;
+    width: 10%;
+    background-color: #FFF;
+    border-right: 1px solid #EEE;
+}
+
+.menu-content {
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    top: 30%;
+    margin: -1.25rem 0 0 0;
+    box-sizing: inherit;
+}
+
+.menu-link {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    color: black;
+    background-color: transparent;
+    background: transparent;
+    outline: none;
+    border-color: transparent;
+}
+
+.menu-link:hover, .menu-link:active, .menu-link:focus {
+    color: orange;
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.menu-link:disabled {
+    color: grey;
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.menu-link-title {
+    font-size: 1.75rem;
+}
+
+/* /////////////////////////////////////////////////////////////////////
+ */
+.wall-lander {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.progress-bar-wall-section {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-style-wall {
+    width: 80%;
+    align-items: center;
+}
+
+.heading_wall_section {
+    align-items: center;
+    text-align: center;
+}
+
+.heading_wall_section_subtitlesubdescription {
+    align-self: center;
+    font-family: "ff-tisa-web-pro", Palatino, " Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-size: 0.625rem;
+    line-height: 17.5px;
+    line-height: 1.09375rem;
+}
+
+.wall-lander-row-section {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    align-self: center;
+    justify-content: space-between;
+    padding-top: 30px;
+}
+
+.wall-lander-row-section_add_idea {
+    width: 45%;
+    height:300px;
+    align-self: left;
+    align-content: center;
+    background-image: url('./images/light-bulb.jpg');
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.wall-lander-row-section_backgroud {
+    background-color: rgba(0,0,0, 0.5);
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.wall-lander-row-section_view_ideas {
+    width: 45%;
+    height:300px;
+    align-self: right;
+    background-image: url('./images/community.jpg');
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.btn-add-idea {
+    outline-color: none;
+    border-color: transparent;
+    color: white;
+}
+
+.btn-add-idea:hover {
+    outline: none;
+    border: none;
+    border-color: transparent;
+    background-image: linear-gradient(-40deg, rgba(255, 78, 80, 1), rgba(249, 212, 35, 1)); 
+}
+
+.btn-add-idea:active, .btn-add-idea:focus {
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.add_idea_item {
+    font-family: 'Tangerine', cursive;
+    font-weight: normal;
+    text-align: center;
+    font-size: 4rem;
+}
+
+
+/* ---------------------------------------IDEA FORM-------------------------------------------- */
+.IdeaForm {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.IdeaForm-container-heading {
+    align-items: center;
+    text-align: center;
+    font-family: "ff-tisa-web-pro", Palatino, " Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-weight: normal;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.IdeaForm-container-wraper {
+    width: 40%;
+    align-self: center;
+}
+
+.container-contact-form-btn {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  
+.IdeaForm-button, .IdeaForm-button:active {
+    margin-top: 50px;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border-color: orange;
+    background: orange;
+    font-family: Montserrat-Bold;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+  
+.IdeaForm-button:hover, .IdeaForm-button:focus{
+    background: rgb(216, 106, 4);
+    border-color: transparent;
+    color: white;
+}
+
+.wrap-form-control {
+    position: relative;
+    width: 100%;
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-family: Poppins-Regular;
+    font-size: 22px;
+    color: #555555;
+    line-height: 1.2;
+    padding: 0 2px;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    z-index: 1;
+    margin-bottom: 50px;
+}
+
+label {
+    font-family: Poppins-SemiBold;
+    font-size: 18px;
+    color: #999999;
+    line-height: 1.2;
+    padding-left: 2px;
+}
+
+
+/* -----------------------------------------------  IDEAS WALL  ------------------------------------------------ */
+
+.IdeasWall {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.IdeasWall-container-heading {
+    align-items: center;
+    text-align: center;
+    font-family: 'Tangerine', cursive;
+    font-weight: normal;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 3rem;
+}
+
+.IdeaForm-container-wraper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.IdeasWall-ideas-row {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.IdeasWall-idea-card {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.IdeasWall-idea-card-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.idea-reactionButtons {
+    display: flex;
+    width: 70%;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.idea-level-up, .idea-level-down, .idea-level-love {
+    width: 20%;
+}
+
+.idea-level-love {
+    background-color: orange;
+    border:transparent;
+}
+
+.idea-level-down {
+    background-color: rgb(3, 25, 97);
+    border:transparent;
+}
+
+.idea-level-up {
+    background-color: rgb(6, 158, 6);
+    border:transparent;
+}
+
+.idea-level-love:hover, .idea-level-love:focus, .idea-level-love:active {
+    background-color: rgb(216, 141, 3);
+    border:transparent;
+}
+
+.idea-level-down:hover, .idea-level-down:focus, .idea-level-down:active {
+    background-color: rgb(3, 18, 66);
+    border:transparent;
+}
+
+.idea-level-up:hover, .idea-level-up:focus, .idea-level-up:active {
+    background-color: rgb(3, 112, 3);
+    border:transparent;
+    border-color: transparent;
+    outline-color: transparent;
+}

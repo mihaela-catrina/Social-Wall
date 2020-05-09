@@ -58,10 +58,7 @@ class SupportPage extends React.Component {
         const items = [
             <div>
                 <li class="nav-item">
-                    <Button variant="outline-info" size="md" block onClick={this.editSupport}>Fa cevaaa</Button>
-                </li>
-                <li class="nav-item">
-                    <Button variant="outline-info" size="md" block onClick={this.viewMessages}>View Messages</Button>
+                    <Button className="Admin-dasboard-button" variant="outline-info" size="md" block onClick={this.viewMessages}>View Messages</Button>
                 </li>
             </div>
         ]

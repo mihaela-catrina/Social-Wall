@@ -119,6 +119,29 @@ router.delete('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req
     }
 });
 
+router.get('/pending', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
+    try {
+        const users = await UsersService.getPending();
+        res.json(users);
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
+router.put('/pending/:id', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    try {
+        const resp = await UsersService.approve(id);
+        res.json(resp);
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
 router.get('/:id', authorizeAndExtractToken, authorizeRoles('admin', "tehnical_support"), async (req, res, next) => {
     const {
         id
@@ -159,8 +182,10 @@ router.post('/login', async (req, res, next) => {
       };
   
       validateFields(fieldsToBeValidated);
+    
+      const resp = await UsersService.checkConfirmedAccount(username);
 
-    if (await UsersService.checkConfirmedAccount(username)) {
+    if (resp.status) {
         const {user, token} = await UsersService.authenticate(username, password);
         res.status(200).json({
                 msg: "Success",
@@ -174,10 +199,18 @@ router.post('/login', async (req, res, next) => {
                 token: token
         });
     } else {
-        res.status(200).json({
-            msg: "You have not confirmed your email!",
-            confirmed: false
-        });
+        console.log(resp.role)
+        if (resp.role === 'local-authority') {
+            res.status(200).json({
+                msg: "Your request is not verified yet!",
+                confirmed: false
+            });
+        } else {
+            res.status(200).json({
+                msg: "You have not confirmed your email!",
+                confirmed: false
+            });
+        }
     }
   } catch (err) {
       // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 

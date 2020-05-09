@@ -15,6 +15,8 @@ import { ConfirmPage } from '@/ConfirmPage';
 import { ContactPage } from '@/ContactPage';
 import { SupportPage } from '@/SupportPage';
 import { FAQPage } from '@/FAQPage';
+import { CommunityPortalPage} from '@/CommunityPortalPage';
+import { LocalAuthPage } from '@/LocalAuthPage';
 
 import './App.css';
 
@@ -26,6 +28,7 @@ class App extends React.Component {
             currentUser: null,
             isAdmin: false,
             isSupport: false,
+            isAuthority: false
         };
     }
 
@@ -33,7 +36,8 @@ class App extends React.Component {
         authenticationService.currentUser.subscribe(x => this.setState({
             currentUser: x,
             isAdmin: x && x.role === Role.Admin,
-            isSupport: x && x.role === Role.TehnicalSupport
+            isSupport: x && x.role === Role.TehnicalSupport,
+            isAuthority: x && x.role === Role.LocalAuthority
         }));
     }
 
@@ -43,7 +47,7 @@ class App extends React.Component {
     }
 
     render() {
-        const { currentUser, isAdmin, isSupport } = this.state;
+        const { currentUser, isAdmin, isSupport, isAuthority } = this.state;
         return (
             <Router history={history}>
                 <div className="App">
@@ -60,6 +64,12 @@ class App extends React.Component {
                                     {isSupport && <Nav.Link href="/support">Support Dashboard</Nav.Link>}
                                 </Nav>
                                 <Nav>
+                                    {isAuthority && <Nav.Link href="/local-auth">Authorities Dashboard</Nav.Link>}
+                                </Nav>
+                                <Nav>
+                                    {!isAdmin && !isSupport && !isAuthority && <Nav.Link href="/community-portal">Community Portal</Nav.Link>}
+                                </Nav>
+                                <Nav>
                                     {!isAdmin && !isSupport && <Nav.Link href="/faq-page">FAQ</Nav.Link>}
                                 </Nav>
                                 <Nav>
@@ -70,7 +80,7 @@ class App extends React.Component {
                                         Signed in as: <a href="/profile">{currentUser.firstName + " " + currentUser.lastName}</a>
                                     </Navbar.Text>
                                     <Nav className="logout-button">
-                                        <Button onClick={this.logout} variant="outline-info">Logout</Button>
+                                        <Button className="logout-btn" onClick={this.logout} variant="outline-warning" style={{"borderBlockColor": "orange"}}>Logout</Button>
                                     </Nav>
                                 </Navbar.Collapse> 
                             </React.Fragment>
@@ -98,6 +108,8 @@ class App extends React.Component {
                                 <Route path="/contact-page" component={ContactPage} />
                                 <Route path="/support" component={SupportPage} />
                                 <Route path="/faq-page" component={FAQPage}/>
+                                <Route path="/community-portal" component={CommunityPortalPage}/>
+                                <Route path="/local-auth" component={LocalAuthPage}/>
                             </div>
                     </div>
                 </div>

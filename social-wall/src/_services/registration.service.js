@@ -9,6 +9,7 @@ export const registrationService = {
 };
 
 function register(role, email, firstName, lastName, username, password) {
+    console.log(role);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },

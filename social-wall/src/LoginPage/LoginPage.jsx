@@ -40,7 +40,7 @@ class LoginPage extends React.Component {
                                 data => {
                                     if (!data.confirmed) {
                                         store.addNotification({
-                                            title: 'Email Confirmation',
+                                            title: 'Account Confirmation',
                                             message: data.msg,
                                             type: 'warning',                         
                                             container: 'bottom-left',                // where to position the notifications

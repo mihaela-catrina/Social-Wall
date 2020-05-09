@@ -18,14 +18,20 @@ class AdminPage extends React.Component {
 
         this.state = {
             users: [],
+            pendingUsers: [],
             editActive: false,
             viewActive: false,
+            viewPendingRequests: false,
             dashBoardItems: null
         };
 
         this.editSupport = this.editSupport.bind(this);
         this.viewUsers = this.viewUsers.bind(this);
         this.getDashboardItems = this.getDashboardItems.bind(this);
+        this.viewPendingRequests = this.viewPendingRequests.bind(this);
+        this.renderPendingRequests = this.renderPendingRequests.bind(this);
+        this.approve = this.approve.bind(this);
+        this.getPendingUsers = this.getPendingUsers.bind(this);
     }
 
     componentWillMount() {
@@ -35,11 +41,58 @@ class AdminPage extends React.Component {
 
     editSupport() {
         this.setState({viewActive: false});
+        this.setState({viewPendingRequests: false});
         this.setState({editActive: true});
     }
 
     viewUsers() {
-        userService.getAll().then(users => this.setState({ users: users,  editActive: false, viewActive: true}));
+        userService.getAll().then(users => this.setState({ users: users,  editActive: false, viewPendingRequests: false, viewActive: true}));
+    }
+
+    getPendingUsers() {
+        userService.viewPendingRequests().then(users=>this.setState({pendingUsers: users}));
+    }
+
+    viewPendingRequests() {
+        userService.viewPendingRequests().then(users=>
+        {
+            this.setState({pendingUsers: users});
+            this.setState({viewActive: false});
+            this.setState({editActive: false});
+            this.setState({viewPendingRequests: true});
+        });
+    }
+
+    approve(id) {
+        userService.approveRequest(id).then(resp => {
+            store.addNotification({
+                title: 'Approved',
+                message: resp.msg,
+                type: 'warning',                         
+                container: 'bottom-left',                // where to position the notifications
+                animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+                animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+                dismiss: {
+                  duration: 3000 
+                }
+            })
+            this.getPendingUsers()
+        });
+    }
+
+    renderPendingRequests() {
+        return (
+            <div className="pending-requests-container">
+                {this.state.pendingUsers.map((user, i) => {
+                    return (
+                        <div className="pending-requests-container-row">
+                            <Button className="pending-approve-btn" variant="outline-warning" size="md" block onClick={() => this.approve(user._id)}>Approve</Button>
+                            <span className="pending-users-name">{user.firstName} {user.lastName}   -   {user.email}</span>
+                        </div>
+                    );
+                })}
+            </div>
+        );
     }
 
     renderRegisterSupportForm() {
@@ -97,7 +150,7 @@ class AdminPage extends React.Component {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-success btn-block" disabled={isSubmitting}>Register</button>
+                                <button type="submit" className="btn btn-success btn-block submit-form-brn-admin" disabled={isSubmitting}>Register</button>
                                 {isSubmitting &&
                                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                 }
@@ -117,10 +170,13 @@ class AdminPage extends React.Component {
         const items = [
             <div>
                 <li class="nav-item">
-                    <Button variant="outline-info" size="md" block onClick={this.editSupport}>Add Tehnical Support User</Button>
+                    <Button className="Admin-dasboard-button" variant="outline-warning" size="md" block onClick={this.editSupport}>Add Tehnical Support User</Button>
                 </li>
                 <li class="nav-item">
-                    <Button variant="outline-info" size="md" block onClick={this.viewUsers}>View Users</Button>
+                    <Button className="Admin-dasboard-button" variant="outline-warning" size="md" block onClick={this.viewUsers}>View Users</Button>
+                </li>
+                <li class="nav-item">
+                    <Button className="Admin-dasboard-button" variant="outline-warning" size="md" block onClick={this.viewPendingRequests}> View Pending Requests </Button>
                 </li>
             </div>
         ]
@@ -167,6 +223,8 @@ class AdminPage extends React.Component {
                         {this.renderRegisterSupportForm()}
                     </div>
                 }
+
+                { this.state.viewPendingRequests && this.renderPendingRequests()}
             </div>
         );
     }

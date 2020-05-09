@@ -35,3 +35,8 @@ h2 {
       width: 400px;
     }
 }
+
+.Admin-dasboard-button {
+    border-color: rgb(219, 120, 5);
+    color: rgb(219, 120, 5);
+}

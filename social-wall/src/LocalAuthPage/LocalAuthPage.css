@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+
+.wall-wraper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+}
+
+/* /////////////////////////////////////////////////////////////////////////
+ */
+/* /////////////////////////////////////////////////////////////////////
+ */
+.wall-lander {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.progress-bar-wall-section {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-style-wall {
+    width: 80%;
+    align-items: center;
+}
+
+.heading_wall_section {
+    align-items: center;
+    text-align: center;
+}
+
+.heading_wall_section_subtitle {
+    align-self: center;
+    font-family: "ff-tisa-web-pro", Palatino, " Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-size: 0.625rem;
+    line-height: 17.5px;
+    line-height: 1.09375rem;
+}
+
+/* -----------------------------------------------  IDEAS WALL  ------------------------------------------------ */
+
+.IdeasWall {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+}
+
+.IdeasWall-container-heading {
+    align-items: center;
+    text-align: center;
+    font-family: 'Tangerine', cursive;
+    font-weight: normal;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 3rem;
+}
+
+.IdeaForm-container-wraper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.IdeasWall-ideas-row {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.IdeasWall-idea-card {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.IdeasWall-idea-card-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.idea-reactionButtons {
+    display: flex;
+    width: 70%;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.idea-level-up, .idea-level-down, .idea-level-love {
+    width: 20%;
+}
+
+.idea-level-love {
+    background-color: orange;
+    border:transparent;
+}
+
+.idea-level-down {
+    background-color: rgb(3, 25, 97);
+    border:transparent;
+}
+
+.idea-level-up {
+    background-color: rgb(6, 158, 6);
+    border:transparent;
+}
+
+.idea-level-love:hover, .idea-level-love:focus, .idea-level-love:active {
+    background-color: rgb(216, 141, 3);
+    border:transparent;
+}
+
+.idea-level-down:hover, .idea-level-down:focus, .idea-level-down:active {
+    background-color: rgb(3, 18, 66);
+    border:transparent;
+}
+
+.idea-level-up:hover, .idea-level-up:focus, .idea-level-up:active {
+    background-color: rgb(3, 112, 3);
+    border:transparent;
+    border-color: transparent;
+    outline-color: transparent;
+}
+
+.subdescription {
+    align-self: center;
+    font-family: "ff-tisa-web-pro", Palatino, " Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-size: 0.625rem;
+    line-height: 17.5px;
+    line-height: 1.09375rem;
+}
