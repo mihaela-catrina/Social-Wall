@@ -11,7 +11,6 @@ import { registrationService } from '@/_services';
 
 const roleOptions = [
     { value: 'user', label: 'Citizen' },
-    { value: 'admin', label: 'Admin' },
     { value: 'local-authority', label:"Local authority representant"}
 ]
 

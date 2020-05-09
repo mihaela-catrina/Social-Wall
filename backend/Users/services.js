@@ -20,6 +20,24 @@ const {
     compare
 } = require('../security/Password');
 
+const addDefaultAdmin = async () => {
+    console.log("adddd");
+    const existingUser = await Users.findOne({ username: "admin" });
+    if (!existingUser) {
+        const hashedPassword = await hash("admin");
+        const user = new Users({
+            role: "admin",
+            email: "admin@gmail.com",
+            firstName: "Admin",
+            lastName: "Default",
+            username: "admin",
+            password: hashedPassword,
+            confirmed: true
+        });
+        await user.save();
+    }
+}
+
 const add = async (role, email, firstName, lastName, username, password) => {
     const hashedPassword = await hash(password);
     const user = new Users({
@@ -122,5 +140,6 @@ module.exports = {
     remove,
     checkConfirmedAccount,
     getPending,
-    approve
+    approve,
+    addDefaultAdmin
 }

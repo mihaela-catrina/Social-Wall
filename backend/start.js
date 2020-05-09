@@ -3,6 +3,7 @@ const morgan = require('morgan'); //middleware de logare
 const helmet = require('helmet'); //middleware de securitate
 
 const routes = require('./routes');
+const UsersService = require('./Users/services.js');
 
 const app = express();
 
@@ -40,3 +41,4 @@ app.use((err, req, res, next) => {
 app.listen(process.env.PORT, () => {
     console.log(`App is listening on ${process.env.PORT}`);
 });
+
