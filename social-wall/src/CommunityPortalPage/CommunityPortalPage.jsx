@@ -20,7 +20,8 @@ import './CommunityPortalPage.css'
 const authorityOptions = [
     { value: 'local-police', label: 'Local Police' },
     { value: 'town-hall-officials', label: 'Town Hall Officials' },
-    { value: 'environmental-guard', label: 'Environmental guard'}
+    { value: 'environmental-guard', label: 'Environmental guard'},
+    { value: 'local-schools', label: 'Local schools'},
 ];
 
 const tagsOptions = [
@@ -199,7 +200,7 @@ class CommunityPortalPage extends React.Component {
                                         store.addNotification({
                                             title: 'Register',
                                             message: data.msg,
-                                            type: 'info',                         
+                                            type: 'warning',                         
                                             container: 'bottom-left',                // where to position the notifications
                                             animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
                                             animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied

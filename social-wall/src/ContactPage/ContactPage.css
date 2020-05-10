@@ -142,6 +142,8 @@ label {
   transition: all 0.4s;
 }
 
-.contact-form-btn:hover {
+.contact-form-btn:hover, .contact-form-btn:active, .contact-form-btn:focus {
   background: rgb(231, 48, 51);
+  outline: none;
+  border-color: transparent;
 }

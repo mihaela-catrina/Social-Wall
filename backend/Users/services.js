@@ -68,6 +68,8 @@ const addSupport = async (role, username, password) => {
     const user = new Users({
         role,
         username,
+        firstName: "Suport",
+        lastName: "User",
         password: hashedPassword,
         confirmed: true
     });
@@ -89,6 +91,10 @@ const getById = async (id) => {
 
 const remove = async () => {
     return await Users.remove({});
+}
+
+const removeById = async (id) => {
+    return await Users.remove({_id: id});
 }
 
 const approve = async (id) => {
@@ -141,5 +147,6 @@ module.exports = {
     checkConfirmedAccount,
     getPending,
     approve,
-    addDefaultAdmin
+    addDefaultAdmin,
+    removeById
 }

@@ -119,6 +119,19 @@ router.delete('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req
     }
 });
 
+router.delete('/:id', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    try {
+        const users = await UsersService.removeById(id);
+        res.json(users);
+    } catch (err) {
+        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+        next(err);
+    }
+});
+
 router.get('/pending', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
     try {
         const users = await UsersService.getPending();

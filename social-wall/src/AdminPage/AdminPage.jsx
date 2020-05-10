@@ -119,7 +119,7 @@ class AdminPage extends React.Component {
                                     store.addNotification({
                                         title: 'Register',
                                         message: data.msg,
-                                        type: 'info',                         
+                                        type: 'warning',                         
                                         container: 'bottom-left',                // where to position the notifications
                                         animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
                                         animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
